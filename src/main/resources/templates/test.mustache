@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>IGDB TEST WEB (made by.MH)</title>
+    <!-- 제이쿼리 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+<body>
+<h2>테스트 중인 페이지입니다</h2>
+<div class="accordion" id="accordionExample" style="width : 500px; margin-left : 20px;">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                사용방법
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <p>igdb id를 여러개 입력하면 순차적으로 데이터를 불러옵니다</p>
+                <p>ex)228535 228536 228537</p>
+                <p>아마... 엑셀에서 id 드래그 복사해서 붙어넣기 하면 될듯...?</p>
+                <p>로딩창 미구현</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="input-group" style="width : 300px; margin : 40px;">
+    <input id="igdb_id" type="search" class="form-control rounded" placeholder="IGDB ID" aria-label="Search" aria-describedby="search-addon" onkeyup="enterKey();"/>
+    <button type="button" class="btn btn-outline-primary" onclick="getIgdbItems();">search</button>
+    <div class="spinner-border" role="status" id="roadingStatus" style="display : none;">
+        <span class="sr-only"></span>
+    </div>
+</div>
+
+<div id="igdb_contents">
+
+</div>
+<script type="text/javascript">
+function getIgdbItems() {
+    var array = $('#igdb_id')[0].value.split(' ');
+    for (const item of array) {
+        getIgdbItem(item);
+    }
+}
+
+function getIgdbItem(item) {
+	setTimeout(function() {
+	    $.ajax({
+            type : "POST",
+            url : "api/games/"+item,
+            dataType : "json",
+            async : false,
+            success : function(res) {
+                var content = `
+                    <div style="width : 1025px; height : 365px; margin : 50px;" id="${res.data[0].id}_content">
+                    <button type="button" class="btn-close" aria-label="Close" onClick="delContent('${res.data[0].id}_content');"></button>
+                    <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/${res.data[1][0].image_id}.jpg" style="width : 265px; height : 363px; float: left; margin-right : 35px;">
+                    <table class="table" style="text-align: center; width : 700px; height : 365px; float: left;">
+                        <thead>
+                        <tr>
+                            <th scope="col" style="width: 100px;">#</th>
+                            <th scope="col">DATA</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>Igdb ID</th>
+                            <td>${res.data[0].id}</td>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <td>${res.data[0].name}</td>
+                        </tr>
+                        <tr>
+                            <th>Link</th>
+                            <td>
+                                <button type="button" onclick="window.open('${res.data[0].url}', '${res.data[0].name} IGDB'),
+                                                    window.open('https://www.google.co.kr/search?q=${res.data[0].name} game', '${res.data[0].name} google'),
+                                                    window.open('https://www.youtube.com/results?search_query=${res.data[0].name} game play', '${res.data[0].name} youtube')">ALL LINK</button>
+                                <button type="button" onclick="window.open('${res.data[0].url}', '${res.data[0].name} IGDB')">IGDB LINK</button>
+                                <button type="button" onclick="window.open('https://www.google.co.kr/search?q=${res.data[0].name} game', '${res.data[0].name} google')">Search Google</button>
+                                <button type="button" onclick="window.open('https://www.youtube.com/results?search_query=${res.data[0].name} game play', '${res.data[0].name} youtube')">Search Youtube</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Summary</th>
+                            <td id="igdb_summary_data">${res.data[0].summary}</td>
+                        </tr>
+                        </tbody>
+                    </table></div>`;
+                $("#igdb_contents").append(content);
+            },
+            error : function() {
+                Console.log("실패",error);
+            }
+        });
+    }, 0);
+}
+
+function enterKey() {
+	if (window.event.keyCode == 13) {
+    	getIgdbItems();
+    }
+}
+
+function delContent(id) {
+    const div = document.getElementById(id);
+    div.remove();
+}
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+</html>
