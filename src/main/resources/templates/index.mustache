@@ -31,7 +31,8 @@
             </div>
         </div>
     </div>
-    <a href="/restaurant"><strong>점식 뭐먹지</strong></a>
+    <a href="/restaurant"><strong>점식 뭐먹지</strong></a><br>
+    <p><strong>탭 2개가 동시에 안열리면 주소창 오른쪽에 팝업 허용해주세요~</strong></p>
 </div>
 <div class="input-group" style="width : 300px; margin : 40px;">
     <input id="igdb_id" type="search" class="form-control rounded" placeholder="IGDB ID" aria-label="Search" aria-describedby="search-addon" onkeyup="enterKey();"/>
@@ -49,11 +50,11 @@
              url: "api/games/"+item,
              dataType:"json",
             success:function(res){
-                window.open(`${res.data[0].url}`);
+                window.open(`${res.data[0].url}`,"1");
                 var url = "https://www.google.co.kr/search?q=";
                 url += res.data[0].name;
                 url += " game wiki";
-                window.open(url);
+                window.open(url,"2");
             },
             beforeSend:function(){
                 $("#roadingStatus").show();
