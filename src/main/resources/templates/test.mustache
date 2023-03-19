@@ -48,7 +48,6 @@ function getIgdbItems() {
         getIgdbItem(item);
     }
 }
-
 function getIgdbItem(item) {
 	setTimeout(function() {
 	    $.ajax({
@@ -96,24 +95,21 @@ function getIgdbItem(item) {
                     </table></div>`;
                 $("#igdb_contents").append(content);
             },
-            error : function() {
+            error : function(error) {
                 Console.log("실패",error);
             }
         });
     }, 0);
 }
-
 function enterKey() {
 	if (window.event.keyCode == 13) {
     	getIgdbItems();
     }
 }
-
 function delContent(id) {
     const div = document.getElementById(id);
     div.remove();
 }
-
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

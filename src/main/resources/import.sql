@@ -1,0 +1,2 @@
+insert into RESTAURANT (name, category, menu, map_id, x, y, kakao_url, naver_url) values('달맞이 국밥', '한식', '국밥', 1866211642, '127.110466619207', '37.4021008120189', 'http://place.map.kakao.com/1866211642', 'https://naver.me/GTgsbZLX');
+insert into RESTAURANT (name, category, menu, map_id, x, y, kakao_url, naver_url) values('더 집밥', '한식', '국밥', 26883136, '127.110439470783', '37.4020720047187', 'http://place.map.kakao.com/26883136', 'https://naver.me/FOv9xZyp');

@@ -25,10 +25,12 @@
                 <p><strong>2023.03.01 V1.1 링크 검색 베타 추가</strong></p>
                 <p><strong>2023.03.05 V1.2 출력 방식 변경으로 링크 버그 해결, 삭제 버튼 추가</strong><br>
                     (단, 새로고침시 출력된 내용 전체 삭제됨)</p>
+                <p><strong>2023.03.18 V1.3 검색시 IGDB와 구글 검색사이트가 자동으로 동시에 열립니다</strong><br>
+                    (기존 방식으로 자잘한 버그가 계속 생겨 방식 수정)<br>
+                    (기존 방식이 편하신 분은 <a href="/old">여기</a>로 들어가시면 됩니다</p>
             </div>
         </div>
     </div>
-    <button type="button" onclick="location.href='/test'">멀티 검색 테스트 페이지 이동 </button>
 </div>
 <div class="input-group" style="width : 300px; margin : 40px;">
     <input id="igdb_id" type="search" class="form-control rounded" placeholder="IGDB ID" aria-label="Search" aria-describedby="search-addon" onkeyup="enterKey();"/>
@@ -38,70 +40,37 @@
     </div>
 </div>
 
-<div id="igdb_contents">
-
-</div>
 <script type="text/javascript">
-function getIgdbItem() {
-    $("#roadingStatus").show();
-    var item = $('#igdb_id')[0].value;
-	$.ajax({
-        type : "POST",
-        url : "api/games/"+item,
-        dataType : "json"
-    }).done(res=> {
-        var content = `
-            <div style="width : 1025px; height : 365px; margin : 50px;" id="${res.data[0].id}_content">
-            <button type="button" class="btn-close" aria-label="Close" onClick="delContent('${res.data[0].id}_content');"></button>
-            <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/${res.data[1][0].image_id}.jpg" style="width : 265px; height : 363px; float: left; margin-right : 35px;">
-            <table class="table" style="text-align: center; width : 700px; height : 365px; float: left;">
-                <thead>
-                <tr>
-                    <th scope="col" style="width: 100px;">#</th>
-                    <th scope="col">DATA</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th>Igdb ID</th>
-                    <td>${res.data[0].id}</td>
-                </tr>
-                <tr>
-                    <th>Name</th>
-                    <td>${res.data[0].name}</td>
-                </tr>
-                <tr>
-                    <th>Link</th>
-                    <td>
-                        <button type="button" onclick="window.open('${res.data[0].url}', '${res.data[0].name} IGDB'),
-                                            window.open('https://www.google.co.kr/search?q=${res.data[0].name} game', '${res.data[0].name} google'),
-                                            window.open('https://www.youtube.com/results?search_query=${res.data[0].name} game play', '${res.data[0].name} youtube')">ALL LINK</button>
-                        <button type="button" onclick="window.open('${res.data[0].url}', '${res.data[0].name} IGDB')">IGDB LINK</button>
-                        <button type="button" onclick="window.open('https://www.google.co.kr/search?q=${res.data[0].name} game', '${res.data[0].name} google')">Search Google</button>
-                        <button type="button" onclick="window.open('https://www.youtube.com/results?search_query=${res.data[0].name} game play', '${res.data[0].name} youtube')">Search Youtube</button>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Summary</th>
-                    <td id="igdb_summary_data">${res.data[0].summary}</td>
-                </tr>
-                </tbody>
-            </table></div>`;
-        $("#igdb_contents").append(content);
-        $("#roadingStatus").hide();
-    }).fail(error=> {
-        console.log("실패",error);
-    });
-}
-function enterKey() {
-	if (window.event.keyCode == 13) {
-    	getIgdbItem();
+    function getIgdbItem() {
+        var item = $('#igdb_id')[0].value;
+        $.ajax({
+             type:"POST",
+             url: "api/games/"+item,
+             dataType:"json",
+            success:function(res){
+                window.open(`${res.data[0].url}`);
+                var url = "https://www.google.co.kr/search?q=";
+                url += res.data[0].name;
+                url += " game wiki";
+                window.open(url);
+            },
+            beforeSend:function(){
+                $("#roadingStatus").show();
+            },
+            complete:function(){
+                $("#roadingStatus").hide();
+            },
+            error:function(e){
+                alert("없는 id 입니다");
+            }
+        });
     }
-}
-function delContent(id) {
-    const div = document.getElementById(id);
-    div.remove();
-}
+
+    function enterKey() {
+        if (window.event.keyCode == 13) {
+            getIgdbItem();
+        }
+    }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
