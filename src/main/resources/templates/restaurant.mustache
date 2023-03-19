@@ -12,13 +12,28 @@
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
+<div class="accordion" id="accordionExample" style="width : 500px; margin-left : 20px;">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                점심 뭐먹지 패치노트
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <p><strong>2023.03.19 V1.0 테스트 데이터 10개</strong></p>
+            </div>
+        </div>
+    </div>
+    <a href="/"><strong>뒤로 가기</strong></a>
+</div>
 <div style="margin:50px; width:1900px; display: flex;">
     <div id="positions">
         {{#positions}}
             <input type="hidden" name="content" value="{{content}}">
             <input type="hidden" name="X" value="{{X}}">
             <input type="hidden" name="Y" value="{{Y}}">
-            <input type="hidden" name="mapId" value="{{mapid}}">
+            <input type="hidden" name="id" value="{{id}}">
         {{/positions}}
     </div>
     <div id="map" style="width:1000px;height:800px;"></div>
@@ -40,7 +55,7 @@
                     <td>{{name}}</td>
                     <td>{{category}}</td>
                     <td>{{menu}}</td>
-                    <td><input type="button" id="{{mapId}}" value="위치보기"></td>
+                    <td><input type="button" id="{{id}}" value="위치보기"></td>
                 </tr>
             {{/data}}
             </tbody>
@@ -55,7 +70,7 @@
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
     mapOption = {
         center: new kakao.maps.LatLng(y, x), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        level: 4 // 지도의 확대 레벨
     };
 
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -64,7 +79,7 @@
     var contents = document.getElementsByName("content");
     var X = document.getElementsByName("X");
     var Y = document.getElementsByName("Y");
-    var ids = document.getElementsByName("mapId");
+    var ids = document.getElementsByName("id");
     for(var i=0; i<ids.length; i++) {
         var position = {};
         position.content = contents[i].value;
@@ -72,10 +87,6 @@
         position.id = ids[i].value;
         positions.push(position);
     }
-    console.log(positions_test);
-    console.log(positions);
-
-
 
     var infowindows = [];
 

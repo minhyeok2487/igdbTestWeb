@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PositionDto {
+	int id;
 	String content;
 	String Y;
 	String X;
-	int mapid;
 }

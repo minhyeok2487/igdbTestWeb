@@ -1,2 +1,10 @@
-insert into RESTAURANT (name, category, menu, map_id, x, y, kakao_url, naver_url) values('달맞이 국밥', '한식', '국밥', 1866211642, '127.110466619207', '37.4021008120189', 'http://place.map.kakao.com/1866211642', 'https://naver.me/GTgsbZLX');
-insert into RESTAURANT (name, category, menu, map_id, x, y, kakao_url, naver_url) values('더 집밥', '한식', '국밥', 26883136, '127.110439470783', '37.4020720047187', 'http://place.map.kakao.com/26883136', 'https://naver.me/FOv9xZyp');
+insert into RESTAURANT (name, category, menu, x, y, kakao_url, naver_url) values('동해회포차', '해물', '회덮밥', '127.11048466318718', '37.39669737187789', 'http://place.map.kakao.com/1204924801', 'https://naver.me/xM8Ll8r4');
+insert into RESTAURANT (name, category, menu, x, y, naver_url) values('고다이 주방', '일식', '일식덮밥', '127.110439470783', '37.4020720047187', 'https://naver.me/xxA6MIIs');
+insert into RESTAURANT (name, category, menu, x, y, kakao_url, naver_url) values('달맞이 국밥', '한식', '국밥', '127.110466619207', '37.4021008120189', 'http://place.map.kakao.com/1866211642', 'https://naver.me/GTgsbZLX');
+insert into RESTAURANT (name, category, menu, x, y, kakao_url, naver_url) values('더 집밥', '한식', '백반', '127.110439470783', '37.4020720047187', 'http://place.map.kakao.com/26883136', 'https://naver.me/FOv9xZyp');
+insert into RESTAURANT (name, category, menu, x, y, naver_url) values('만찬 슈마우스', '한식', '한식뷔페', '127.110439470783', '37.4020720047187', 'https://search.naver.com/search.naver?query=판교 슈마우스');
+insert into RESTAURANT (name, category, menu, x, y, naver_url) values('명품국수&보쌈정식', '한식', '국수, 보쌈정식', '127.110439470783', '37.4020720047187', 'https://naver.me/xqoiVZ4W');
+insert into RESTAURANT (name, category, menu, x, y, kakao_url, naver_url) values('미쁜선순대', '한식', '순대국', '127.110855347165', '37.4022410074273', 'http://place.map.kakao.com/261535021', 'https://search.naver.com/search.naver?query=판교 미쁜선순대');
+insert into RESTAURANT (name, category, menu, x, y, kakao_url, naver_url) values('밥볶다', '한식', '불백', '127.110439507808', '37.4020972332622', 'http://place.map.kakao.com/1278245477', 'https://naver.me/xEqZwt1n');
+insert into RESTAURANT (name, category, menu, x, y, kakao_url, naver_url) values('북청집', '한식', '삼겹, 제육', '127.110447358305', '37.4012899113755', 'http://place.map.kakao.com/26796081', 'https://naver.me/FtleSkz4');
+insert into RESTAURANT (name, category, menu, x, y, kakao_url, naver_url) values('서울전통육개장', '한식', '육개장', '127.110466619207', '37.4021008120189', 'http://place.map.kakao.com/1674149549', 'https://naver.me/xuCVT9Ix');

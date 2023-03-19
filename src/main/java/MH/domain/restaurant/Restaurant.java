@@ -22,7 +22,6 @@ public class Restaurant {
 	String name;
 	String category;
 	String menu;
-	int mapId;
 	String x;
 	String y;
 	String kakaoUrl;
