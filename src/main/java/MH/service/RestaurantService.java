@@ -15,7 +15,7 @@ public class RestaurantService {
 	private final RestaurantRepository restaurantRepository;
 
 	public List<Restaurant> getData() {
-		List<Restaurant> data = restaurantRepository.findAll();
+		List<Restaurant> data = restaurantRepository.findByXIsNotNull();
 		return data;
 	}
 

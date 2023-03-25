@@ -1,5 +1,6 @@
 package MH.domain.restaurant;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,11 +20,13 @@ public class Restaurant {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
-	String name;
-	String category;
-	String menu;
+	String Name;
+	String Category;
+	String Menu;
+	String Review;
+	String Takeout;
 	String x;
 	String y;
-	String kakaoUrl;
-	String naverUrl;
+	String KakaoUrl;
+	String NaverUrl;
 }

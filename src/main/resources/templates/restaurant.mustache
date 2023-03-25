@@ -22,21 +22,15 @@
         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 <p><strong>2023.03.19 V1.0 테스트 데이터 10개</strong></p>
+                <p>1. mariadb연동</p>
+                <p>2. 데이터 불러오는 과정 수정</p>
             </div>
         </div>
     </div>
     <a href="/"><strong>뒤로 가기</strong></a>
 </div>
-<div style="margin:50px; width:1900px; display: flex;">
-    <div id="positions">
-        {{#positions}}
-            <input type="hidden" name="content" value="{{content}}">
-            <input type="hidden" name="X" value="{{X}}">
-            <input type="hidden" name="Y" value="{{Y}}">
-            <input type="hidden" name="id" value="{{id}}">
-        {{/positions}}
-    </div>
-    <div id="map" style="width:1000px;height:800px;"></div>
+<div style="margin:50px; width:2000px; display:flex;">
+    <div id="map" style="width:1200px;height:1000px;"></div>
     <div>
         <table class="table" style="margin-left:20px; width:800px;">
             <thead>
@@ -44,7 +38,7 @@
                 <th scope="col">#</th>
                 <th scope="col">이름</th>
                 <th scope="col">구분</th>
-                <th scope="col">대표메뉴</th>
+                <th scope="col">메모</th>
                 <th scope="col">버튼</th>
             </tr>
             </thead>
@@ -65,31 +59,39 @@
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1f3c36353159681ee258a746648ee5f2&libraries=services"></script>
 <script type="text/javascript">
-    var y = 37.4003521;
-    var x = 127.1107886;
+
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
     mapOption = {
-        center: new kakao.maps.LatLng(y, x), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(37.4003521, 127.1107886), // 지도의 중심좌표
         level: 4 // 지도의 확대 레벨
     };
 
-    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+    // 지도를 생성합니다
+    var map = new kakao.maps.Map(mapContainer, mapOption);
 
+    // 인포윈도우에 들어갈 데이터 생성
     var positions = [];
-    var contents = document.getElementsByName("content");
-    var X = document.getElementsByName("X");
-    var Y = document.getElementsByName("Y");
-    var ids = document.getElementsByName("id");
-    for(var i=0; i<ids.length; i++) {
-        var position = {};
-        position.content = contents[i].value;
-        position.latlng = new kakao.maps.LatLng(Y[i].value, X[i].value);
-        position.id = ids[i].value;
-        positions.push(position);
-    }
+    $.ajax({
+        type:"GET",
+        url: "api/restaurant",
+        dataType:"json",
+        async:false,
+        success:function(res){
+            for(var i=0; i<res.data.length; i++) {
+                var position = {};
+                position.content = res.data[i].content;
+                position.latlng = new kakao.maps.LatLng(res.data[i].y, res.data[i].x);
+                position.id = res.data[i].id;
+                positions.push(position);
+            }
+        },
+        error:function(e){
+            alert(e);
+        }
+    });
 
+    // 인포윈도우 생성
     var infowindows = [];
-
     for (var i = 0; i < positions.length; i ++) {
         var marker = new kakao.maps.Marker({
             map: map,

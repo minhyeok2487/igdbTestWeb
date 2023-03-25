@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,7 +35,7 @@ public class IgdbController {
 	public String restaurant(Model model) {
 		List<Restaurant> data = restaurantService.getData();
 		List<PositionDto> positions = restaurantService.getPosition(data);
-		System.out.println(positions);
+		System.out.println(data.get(0));
 		model.addAttribute("data", data);
 		model.addAttribute("positions", positions);
 		return "restaurant";
