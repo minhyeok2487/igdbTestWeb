@@ -22,18 +22,19 @@
         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 <p><strong>2023.03.19 V1.0 테스트 데이터 10개</strong></p>
+                <p><strong>2023.03.26 V2.0</strong></p>
                 <p>1. mariadb연동</p>
-                <p>2. 데이터 불러오는 과정 수정</p>
+                <p>2. 데이터 불러오는 과정 수정(ajax호출)</p>
                 <p>3. 데이터 수정 기능 추가(X, Y 입력시 자동으로 포인트 생성)</p>
             </div>
         </div>
     </div>
     <a href="/"><strong>뒤로 가기</strong></a>
 </div>
-<div style="margin:50px; width:2000px; display:flex;">
+<div style="margin:50px; width:2000px; height:1000px; display:flex;">
     <div id="map" style="width:1200px;height:1000px;"></div>
-    <div>
-        <table class="table" style="margin-left:20px; width:800px;">
+    <div style="overflow:auto;">
+        <table class="table" style="margin-left:20px; width:780px; overflow:scroll;">
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -60,6 +61,7 @@
 <div style="margin:50px; width:2200px;">
     <h2>전체 데이터</h2>
     <p><strong>X, Y좌표 입력시 자동으로 포인터 생성</strong></p>
+    <p>사이트 참고 : https://address.dawul.co.kr/</p>
     <table class="table table-striped">
         <thead>
         <tr>
