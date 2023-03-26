@@ -3,10 +3,13 @@ package MH.service;
 import MH.domain.restaurant.Restaurant;
 import MH.domain.restaurant.RestaurantRepository;
 import MH.web.dto.PositionDto;
+import MH.web.dto.RestaurantDto;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,8 +18,38 @@ public class RestaurantService {
 	private final RestaurantRepository restaurantRepository;
 
 	public List<Restaurant> getData() {
-		List<Restaurant> data = restaurantRepository.findByXIsNotNull();
+		List<Restaurant> data = restaurantRepository.findByXIsNotNullAndYIsNotNull();
 		return data;
+	}
+
+	public List<Restaurant> getAllData() {
+		List<Restaurant> data = restaurantRepository.findAll();
+		return data;
+	}
+
+	public Optional<Restaurant> getIdData(int id) {
+		return restaurantRepository.findById(id);
+	}
+
+	@Transactional
+	public Restaurant editData(RestaurantDto restaurantDto) {
+		Restaurant restaurant = restaurantRepository.findById(restaurantDto.getId()).orElseThrow(() -> new IllegalArgumentException());
+		restaurant.setMenu(restaurantDto.getMenu());
+		restaurant.setReview(restaurantDto.getReview());
+		restaurant.setTakeout(restaurantDto.getTakeout());
+		if(restaurantDto.getX() != null) {
+			restaurant.setX(restaurantDto.getX());
+		}
+		if(restaurantDto.getY() != null) {
+			restaurant.setY(restaurantDto.getY());
+		}
+		if(restaurantDto.getKakaoUrl() != null) {
+			restaurant.setKakaoUrl(restaurantDto.getKakaoUrl());
+		}
+		if(restaurantDto.getNaverUrl() != null) {
+			restaurant.setNaverUrl(restaurantDto.getNaverUrl());
+		}
+		return restaurant;
 	}
 
 	public List<PositionDto> getPosition(List<Restaurant> data) {
@@ -26,19 +59,16 @@ public class RestaurantService {
 			positionDto.setId(data.get(i).getId());
 			positionDto.setX(data.get(i).getX());
 			positionDto.setY(data.get(i).getY());
-			String content;
-			if(data.get(i).getKakaoUrl() == null) {
-				content = String.format("<div style=\"width:180px; background:#dddddd; text-align:center;\"><span style=\"font-weight:bold\">"
-						+ "%s</span><br>"
-						+ "<a href=\"%s\" style=\"color:green\" target=\"_blank\">네이버 검색</a></div>",
-					data.get(i).getName(), data.get(i).getNaverUrl());
-			} else {
-				content = String.format("<div style=\"width:180px; background:#dddddd; text-align:center;\"><span style=\"font-weight:bold\">"
-						+ "%s</span><br>"
-						+ "<a href=\"%s\" style=\"color:yellow\" target=\"_blank\">카카오 검색</a><br>"
-						+ "<a href=\"%s\" style=\"color:green\" target=\"_blank\">네이버 검색</a></div>",
-					data.get(i).getName(), data.get(i).getKakaoUrl(), data.get(i).getNaverUrl());
+			String content = String.format("<div style=\"width:180px; background:#dddddd; text-align:center;\"><span style=\"font-weight:bold\">%s</span>", data.get(i).getName());
+			if(data.get(i).getKakaoUrl() != null) {
+				String kakaoUrl = String.format("<br><a href=\"%s\" style=\"color:yellow\" target=\"_blank\">카카오 검색</a>", data.get(i).getKakaoUrl());
+				content += kakaoUrl;
 			}
+			if(data.get(i).getNaverUrl() != null) {
+				String naverUrl = String.format("<br><a href=\"%s\" style=\"color:green\" target=\"_blank\">네이버 검색</a>", data.get(i).getNaverUrl());
+				content += naverUrl;
+			}
+			content += "</div>";
 			positionDto.setContent(content);
 			positions.add(positionDto);
 		}

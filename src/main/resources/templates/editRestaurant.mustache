@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>IGDB TEST WEB (made by.MH)</title>
+    <!-- 제이쿼리 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+<body>
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">데이터</th>
+            </tr>
+        </thead>
+        <form action="../editData/{{data.id}}" method="post">
+            <input type="hidden" name="Name" value="{{data.Name}}">
+            <input type="hidden" name="Category" value="{{data.Category}}">
+            <tbody>
+                <tr>
+                    <th scope="col">이름</th>
+                    <td scope="col">{{data.name}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">구분</th>
+                    <td scope="col">{{data.category}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">메뉴</th>
+                    {{#data.menu}}
+                        <td scope="col"><input type="text" name="Menu" value="{{data.menu}}"></td>
+                    {{/data.menu}}
+                    {{^data.menu}}
+                        <td scope="col"><input type="text" name="Menu"></td>
+                    {{/data.menu}}
+                </tr>
+                <tr>
+                    <th scope="col">리뷰</th>
+                    {{#data.Review}}
+                        <td scope="col"><input type="text" name="Review" value="{{data.Review}}"></td>
+                    {{/data.Review}}
+                    {{^data.Review}}
+                        <td scope="col"><input type="text" name="Review"></td>
+                    {{/data.Review}}
+                </tr>
+                <tr>
+                    <th scope="col">포장</th>
+                    {{#data.Takeout}}
+                        <td scope="col"><input type="text" name="Takeout" value="{{data.Takeout}}"></td>
+                    {{/data.Takeout}}
+                    {{^data.Takeout}}
+                        <td scope="col"><input type="text" name="Takeout"></td>
+                    {{/data.Takeout}}
+                </tr>
+                <tr>
+                    <th scope="col">X</th>
+                    {{#data.X}}
+                        <td scope="col"><input type="text" name="X" value="{{data.X}}"></td>
+                    {{/data.X}}
+                    {{^data.X}}
+                        <td scope="col"><input type="text" name="X"></td>
+                    {{/data.X}}
+                </tr>
+                <tr>
+                    <th scope="col">Y</th>
+                    {{#data.Y}}
+                        <td scope="col"><input type="text" name="Y" value="{{data.Y}}"></td>
+                    {{/data.Y}}
+                    {{^data.Y}}
+                        <td scope="col"><input type="text" name="Y"></td>
+                    {{/data.Y}}
+                </tr>
+                <tr>
+                    <th scope="col">카카오 주소</th>
+                    {{#data.KakaoUrl}}
+                        <td scope="col"><input type="text" name="KakaoUrl" value="{{data.KakaoUrl}}"></td>
+                    {{/data.KakaoUrl}}
+                    {{^data.KakaoUrl}}
+                        <td scope="col"><input type="text" name="KakaoUrl"></td>
+                    {{/data.KakaoUrl}}
+                </tr>
+                <tr>
+                    <th scope="col">네이버 주소</th>
+                    {{#data.NaverUrl}}
+                        <td scope="col"><input type="text" name="NaverUrl" value="{{data.NaverUrl}}"></td>
+                    {{/data.NaverUrl}}
+                    {{^data.NaverUrl}}
+                        <td scope="col"><input type="text" name="NaverUrl"></td>
+                    {{/data.NaverUrl}}
+                </tr>
+                <tr>
+                    <th scope="2"><input type="submit" value="수정하기"></th>
+                </tr>
+            </tbody>
+
+        </form>
+    </table>
+
+</div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1f3c36353159681ee258a746648ee5f2&libraries=services"></script>
+<script type="text/javascript">
+
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+</html>

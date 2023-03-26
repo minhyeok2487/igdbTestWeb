@@ -1,12 +1,12 @@
 package MH.web.api;
 
-import MH.service.IgdbService;
+import MH.domain.restaurant.Restaurant;
 import MH.service.RestaurantService;
 import MH.web.dto.CMRespDto;
 import MH.web.dto.PositionDto;
+import MH.web.dto.RestaurantDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.json.simple.JSONArray;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

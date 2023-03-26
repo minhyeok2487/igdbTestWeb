@@ -24,6 +24,7 @@
                 <p><strong>2023.03.19 V1.0 테스트 데이터 10개</strong></p>
                 <p>1. mariadb연동</p>
                 <p>2. 데이터 불러오는 과정 수정</p>
+                <p>3. 데이터 수정 기능 추가(X, Y 입력시 자동으로 포인트 생성)</p>
             </div>
         </div>
     </div>
@@ -38,7 +39,7 @@
                 <th scope="col">#</th>
                 <th scope="col">이름</th>
                 <th scope="col">구분</th>
-                <th scope="col">메모</th>
+                <th scope="col">메뉴</th>
                 <th scope="col">버튼</th>
             </tr>
             </thead>
@@ -55,6 +56,79 @@
             </tbody>
         </table>
     </div>
+</div>
+<div style="margin:50px; width:2200px;">
+    <h2>전체 데이터</h2>
+    <p><strong>X, Y좌표 입력시 자동으로 포인터 생성</strong></p>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">이름</th>
+            <th scope="col">구분</th>
+            <th scope="col">메뉴</th>
+            <th scope="col">리뷰</th>
+            <th scope="col">포장</th>
+            <th scope="col">X</th>
+            <th scope="col">Y</th>
+            <th scope="col">카카오 검색</th>
+            <th scope="col">네이버 검색</th>
+            <th scope="col">데이터 수정</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#allData}}
+            <tr>
+                <th scope="row">{{id}}</th>
+                <td>{{name}}</td>
+                <td>{{category}}</td>
+                {{#menu}}
+                    <td>{{menu}}</td>
+                {{/menu}}
+                {{^menu}}
+                    <td></td>
+                {{/menu}}
+                {{#Review}}
+                    <td>{{Review}}</td>
+                {{/Review}}
+                {{^Review}}
+                    <td></td>
+                {{/Review}}
+                {{#Takeout}}
+                    <td>{{Takeout}}</td>
+                {{/Takeout}}
+                {{^Takeout}}
+                    <td></td>
+                {{/Takeout}}
+                {{#X}}
+                    <td>{{X}}</td>
+                {{/X}}
+                {{^X}}
+                    <td></td>
+                {{/X}}
+                {{#Y}}
+                    <td>{{Y}}</td>
+                {{/Y}}
+                {{^Y}}
+                    <td></td>
+                {{/Y}}
+                {{#KakaoUrl}}
+                    <td>{{KakaoUrl}}</td>
+                {{/KakaoUrl}}
+                {{^KakaoUrl}}
+                    <td></td>
+                {{/KakaoUrl}}
+                {{#NaverUrl}}
+                    <td>{{NaverUrl}}</td>
+                {{/NaverUrl}}
+                {{^NaverUrl}}
+                    <td></td>
+                {{/NaverUrl}}
+                <td><input type="button" value="데이터 수정" onclick="location.href='restaurant/editData/{{id}}'"></td>
+            </tr>
+        {{/allData}}
+        </tbody>
+    </table>
 </div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1f3c36353159681ee258a746648ee5f2&libraries=services"></script>
@@ -115,6 +189,21 @@
             infowindows[0].open(map, marker);
         };
     }
+
+    function editData(id) {
+        $.ajax({
+            type:"POST",
+            url: "api/restaurant/editData/"+id,
+            dataType:"json",
+            success:function(res){
+                console.log(res)
+            },
+            error:function(e){
+                alert(e);
+            }
+        });
+    }
+
 
 </script>
 
